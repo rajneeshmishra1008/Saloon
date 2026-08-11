@@ -2,7 +2,7 @@
 // CONFIGURATION: अपनी UPI ID और WhatsApp नंबर यहाँ बदलें
 // ----------------------------------------------------
 const salonWhatsAppNumber = "919795334608"; 
-const upiId = "rm0983913@okaxis"; 
+const upiId = "sakshisingh@okicici"; 
 const payeeName = "The Barber Studio";
 
 // एडवांस भुगतान का प्रतिशत (20%)
