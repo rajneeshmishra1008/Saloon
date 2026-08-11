@@ -2,10 +2,10 @@
 // CONFIGURATION: अपनी UPI ID और WhatsApp नंबर यहाँ बदलें
 // ----------------------------------------------------
 const salonWhatsAppNumber = "919795334608"; 
-const upiId = "sakshisingh7758@okicici"; 
-const payeeName = "sakshi Singh";
+const upiId = "q132551802@ybl"; 
+const payeeName = "THE BARBER STUDIO";
 
-// एडवांस भुगतान का प्रतिशत (20%)
+// एडवांस भुगतान का प्रतिशत (10%)
 const ADVANCE_PERCENTAGE = 0.20;
 
 const servicePrices = {
@@ -30,7 +30,7 @@ function updateUpiPaymentDetails() {
     const remainingAmount = totalAmount - advanceAmount;
     
     // UI में Total और Advance Display अपडेट करना
-    document.getElementById('payableAmountDisplay').innerText = `₹${advanceAmount} (20% advance of ₹${totalAmount})`;
+    document.getElementById('payableAmountDisplay').innerText = `₹${advanceAmount} (10% advance of ₹${totalAmount})`;
 
     // UPI Intent URL तैयार करना (अब सिर्फ Advance Amount जाएगा)
     const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${advanceAmount}&cu=INR&tn=${encodeURIComponent('Salon Slot Booking Advance')}`;
