@@ -2,8 +2,11 @@
 // CONFIGURATION: अपनी UPI ID और WhatsApp नंबर यहाँ बदलें
 // ----------------------------------------------------
 const salonWhatsAppNumber = "919795334608"; 
-const upiId = "rm0983913@okaxis"; // <-- अपनी UPI ID डालें (जैसे: 9876543210@paytm / ybl / okaxis)
+const upiId = "rm0983913@okaxis"; 
 const payeeName = "The Barber Studio";
+
+// एडवांस भुगतान का प्रतिशत (20%)
+const ADVANCE_PERCENTAGE = 0.20;
 
 const servicePrices = {
     "Executive Haircut": 350,
@@ -20,17 +23,22 @@ document.getElementById('displayUpiId').innerText = upiId;
 // UPI URL और QR Code अपडेट करने का फ़ंक्शन
 function updateUpiPaymentDetails() {
     const service = document.getElementById('custService').value;
-    const amount = servicePrices[service] || 0;
+    const totalAmount = servicePrices[service] || 0;
     
-    document.getElementById('payableAmountDisplay').innerText = `₹${amount}`;
+    // 20% Advance Amount की गणना (Round Figure में)
+    const advanceAmount = Math.round(totalAmount * ADVANCE_PERCENTAGE);
+    const remainingAmount = totalAmount - advanceAmount;
+    
+    // UI में Total और Advance Display अपडेट करना
+    document.getElementById('payableAmountDisplay').innerText = `₹${advanceAmount} (20% advance of ₹${totalAmount})`;
 
-    // UPI Intent URL तैयार करना
-    const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${amount}&cu=INR&tn=${encodeURIComponent('Salon Slot Booking')}`;
+    // UPI Intent URL तैयार करना (अब सिर्फ Advance Amount जाएगा)
+    const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${advanceAmount}&cu=INR&tn=${encodeURIComponent('Salon Slot Booking Advance')}`;
     
     // Direct UPI Link बटन अपडेट करना
     document.getElementById('directUpiBtn').href = upiUrl;
 
-    // QR Code API (QR Server CDN) का उपयोग करके QR अपडेट करना
+    // QR Code API से QR अपडेट करना
     const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiUrl)}`;
     document.getElementById('upiQrCode').src = qrApiUrl;
 }
@@ -43,7 +51,7 @@ updateUpiPaymentDetails();
 
 // टाइप करते समय अपने आप '/' (Slash) जोड़ने का फ़ंक्शन
 document.getElementById('custDate').addEventListener('input', function(e) {
-    let value = e.target.value.replace(/\D/g, ''); // केवल नंबर रखें
+    let value = e.target.value.replace(/\D/g, ''); 
     if (value.length > 2 && value.length <= 4) {
         value = value.slice(0, 2) + '/' + value.slice(2);
     } else if (value.length > 4) {
@@ -64,6 +72,8 @@ document.getElementById('bookingForm').addEventListener('submit', function(e) {
     const txnId = document.getElementById('txnId').value.trim();
 
     const totalAmount = servicePrices[service] || 0;
+    const advanceAmount = Math.round(totalAmount * ADVANCE_PERCENTAGE);
+    const remainingAmount = totalAmount - advanceAmount;
 
     let formattedDate = dateInput || 'Not specified';
     let dayName = '';
@@ -78,7 +88,7 @@ document.getElementById('bookingForm').addEventListener('submit', function(e) {
     }
 
     const fullDateString = dayName ? `${formattedDate} (${dayName})` : formattedDate;
-    const paymentStatusMsg = txnId ? `✅ भुगतान पूरा हुआ (UTR ID: ${txnId})` : `⏳ भुगतान लंबित (Counter / Cash / UPI)`;
+    const paymentStatusMsg = txnId ? `✅ Advance ₹${advanceAmount} Paid (UTR ID: ${txnId})` : `⏳ Advance Pending (UPI / Counter)`;
 
     const message = 
 `💈 *THE BARBER STUDIO - APPOINTMENT & PAYMENT REQUEST* 💈
@@ -88,13 +98,15 @@ document.getElementById('bookingForm').addEventListener('submit', function(e) {
 👤 *ग्राहक का नाम:* ${name}
 📞 *मोबाइल नंबर:* ${phone}
 ✂️ *चुनी गई सेवा:* ${service}
-💰 *कुल शुल्क:* ₹${totalAmount}
+💵 *कुल शुल्क:* ₹${totalAmount}
+💳 *20% Advance:* ₹${advanceAmount}
+🏷️ *बाकी (Balance Amount):* ₹${remainingAmount}
 📅 *दिनांक व दिन:* ${fullDateString}
 ⏰ *समय Slot:* ${time}
-💳 *पेमेंट स्थिति:* ${paymentStatusMsg}
+📊 *पेमेंट स्थिति:* ${paymentStatusMsg}
 🏦 *UPI ID:* ${upiId}
 ----------------------------------------
-कृपया इस बुकिंग और पेमेंट की पुष्टि (Confirm) करें। धन्यवाद!`;
+कृपया इस बुकिंग और एडवांस पेमेंट की पुष्टि (Confirm) करें। धन्यवाद!`;
 
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${salonWhatsAppNumber}?text=${encodedMessage}`, '_blank');
