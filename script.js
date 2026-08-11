@@ -99,7 +99,7 @@ document.getElementById('bookingForm').addEventListener('submit', function(e) {
 📞 *मोबाइल नंबर:* ${phone}
 ✂️ *चुनी गई सेवा:* ${service}
 💵 *कुल शुल्क:* ₹${totalAmount}
-💳 *20% Advance:* ₹${advanceAmount}
+💳 *10% Advance:* ₹${advanceAmount}
 🏷️ *बाकी (Balance Amount):* ₹${remainingAmount}
 📅 *दिनांक व दिन:* ${fullDateString}
 ⏰ *समय Slot:* ${time}
