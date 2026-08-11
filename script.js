@@ -3,7 +3,7 @@
 // ----------------------------------------------------
 const salonWhatsAppNumber = "919795334608"; 
 const upiId = "sakshisingh@okicici"; 
-const payeeName = "The Barber Studio";
+const payeeName = "sakshi Singh";
 
 // एडवांस भुगतान का प्रतिशत (20%)
 const ADVANCE_PERCENTAGE = 0.20;
