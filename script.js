@@ -2,7 +2,7 @@
 // CONFIGURATION: अपनी UPI ID और WhatsApp नंबर यहाँ बदलें
 // ----------------------------------------------------
 const salonWhatsAppNumber = "919795334608"; 
-const upiId = "sakshisingh@okicici"; 
+const upiId = "sakshisingh7758@okicici"; 
 const payeeName = "sakshi Singh";
 
 // एडवांस भुगतान का प्रतिशत (20%)
