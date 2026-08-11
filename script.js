@@ -1,9 +1,9 @@
 // ----------------------------------------------------
 // CONFIGURATION: अपनी UPI ID और WhatsApp नंबर यहाँ बदलें
 // ----------------------------------------------------
-const salonWhatsAppNumber = "919795334608"; 
+const salonWhatsAppNumber = "7408668784"; 
 const upiId = "q132551802@ybl"; 
-const payeeName = "The Barber Studio";
+const payeeName = "New Super Saloon & Mens's parlour";
 
 // एडवांस भुगतान का प्रतिशत (10%)
 const ADVANCE_PERCENTAGE = 0.10;
@@ -91,7 +91,7 @@ document.getElementById('bookingForm').addEventListener('submit', function(e) {
     const paymentStatusMsg = txnId ? `✅ Advance ₹${advanceAmount} Paid (UTR ID: ${txnId})` : `⏳ Advance Pending (UPI / Counter)`;
 
     const message = 
-`💈 *THE BARBER STUDIO - APPOINTMENT & PAYMENT REQUEST* 💈
+`💈 *New Super Saloon & Men's Parlour - APPOINTMENT REQUEST* 💈
 ----------------------------------------
 नमस्कार, मैंने अपॉइंटमेंट बुक किया है। विवरण नीचे दिया गया है:
 
